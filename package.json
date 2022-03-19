@@ -1,0 +1,12 @@
+{
+    "name": "web-420",
+    "author": "Seth Kerrey",
+    "private": true,
+    "version": "1.0.0",
+    "scripts": {
+        "start": "nodemon app.js"
+    },
+    "dependencies": {
+        
+    }
+}
