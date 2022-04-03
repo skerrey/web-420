@@ -16,7 +16,7 @@ info:
   version: "1.0.0"
 paths:
   /composers:
-    get: 
+    get: #findAllComposers
       tags:
       - "composers"
       summary: Returns a list of composer documents
@@ -30,7 +30,7 @@ paths:
           description: Server Exception
         "501":
           description: MongoDB Exception
-    post:
+    post: #createComposer
       tags:
         - "composers"
       summary: Creates a new composer object
@@ -38,7 +38,7 @@ paths:
         API for adding new composer objects
       operationId: "createComposer"
       requestBody:
-        description: Compoer's information
+        description: Composer's information
         content:
           application/json:
             schema:
@@ -61,8 +61,8 @@ paths:
           description: Server Exception
         "501": 
           description: MongoDB Exception
-  /composers/{id}:
-    get:
+  /composers/{id}: 
+    get: #findComposerById
       tags:
       - "composers"
       summary: Returns a composer document
