@@ -9,3 +9,79 @@
 # ; Resources:
 # ;   Code was provided by Prof Krasso & Bellevue University 
 # ===========================================
+
+openapi: "3.0.0"
+info:
+  title: Composer API
+  version: "1.0.0"
+paths:
+  /composers:
+    get: 
+      tags:
+      - "composers"
+      summary: Returns a list of composer documents
+      description: |
+        API for returning a list of composers from MongoDB Atlas
+      operationId: "findAllComposers"
+      responses: 
+        "200":
+          description: Composer Documents
+        "500":
+          description: Server Exception
+        "501":
+          description: MongoDB Exception
+    post:
+      tags:
+        - "composers"
+      summary: Creates a new composer object
+      description: |
+        API for adding new composer objects
+      operationId: "createComposer"
+      requestBody:
+        description: Compoer's information
+        content:
+          application/json:
+            schema:
+              required:
+                - firstName
+                - lastName
+              properties:
+                firstName:
+                  description: |
+                    Composer first name
+                  type: string
+                lastName: 
+                  description: |
+                    Composer last name
+                  type: string
+      responses:
+        "200":
+          description: User added
+        "500":
+          description: Server Exception
+        "501": 
+          description: MongoDB Exception
+  /composers/{id}:
+    get:
+      tags:
+      - "composers"
+      summary: Returns a composer document
+      description: |
+        API for returning a single composer object from MongoDB
+      operationId: "findComposerById"
+      parameters:
+      - name: id
+        in: "path"
+        description: The composerId requested by the user.
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Composer document in JSON format
+        "500":
+          description: Server Exception
+        "501":
+          description: MongoDB Exception
+        
+ 
