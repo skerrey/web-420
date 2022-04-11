@@ -18,6 +18,10 @@ const http = require("http");
 const swaggerUi = require("swagger-ui-express");
 const swaggerJsdoc = require("swagger-jsdoc");
 const mongoose = require("mongoose"); 
+var composerAPI = require("./routes/kerrey-composer-routes");
+
+// MongoDB database information
+var mongoDB = "mongodb+srv://admin:MongoDBPassword132@buwebdev-cluster-1.ixkw5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
 let app = express(); // Placeholder for Express app
 
@@ -35,11 +39,20 @@ const options = { // Obj literal
         }
     },
     apis: ["./routes/*.js"], // files containing annotations for the OpenAPI Specificiation
-};
+}
 
 const openapiSpecification = swaggerJsdoc(options); // call swaggerJsdoc library - options
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openapiSpecification)); // wire variable to app variable
+app.use('/api', composerAPI);
+
+mongoose.connect(mongoDB);
+mongoose.Promise = global.Promise;
+var db = mongoose.connection;
+db.on("error", console.error.bind(console, "MongoDB connected error:"));
+db.once("open", function () {
+    console.log("Application connected to MongoDB instance");
+});
 
 // Create Server
 http.createServer(app).listen(app.get("port"), function() {
