@@ -19,6 +19,7 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerJsdoc = require("swagger-jsdoc");
 const mongoose = require("mongoose"); 
 var composerAPI = require("./routes/kerrey-composer-routes");
+var personAPI = require("./routes/kerrey-person-routes");
 
 // MongoDB database information
 var mongoDB = "mongodb+srv://admin:MongoDBPassword132@buwebdev-cluster-1.ixkw5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
@@ -45,6 +46,7 @@ const openapiSpecification = swaggerJsdoc(options); // call swaggerJsdoc library
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openapiSpecification)); // wire variable to app variable
 app.use('/api', composerAPI);
+app.use('/api', personAPI);
 
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
