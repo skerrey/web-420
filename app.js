@@ -18,11 +18,12 @@ const http = require("http");
 const swaggerUi = require("swagger-ui-express");
 const swaggerJsdoc = require("swagger-jsdoc");
 const mongoose = require("mongoose"); 
-var composerAPI = require("./routes/kerrey-composer-routes");
-var personAPI = require("./routes/kerrey-person-routes");
+const composerAPI = require("./routes/kerrey-composer-routes");
+const personAPI = require("./routes/kerrey-person-routes");
+const userAPI = require("./routes/kerrey-session-routes"); 
 
 // MongoDB database information
-var mongoDB = "mongodb+srv://admin:MongoDBPassword132@buwebdev-cluster-1.ixkw5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+var mongoDB = "mongodb+srv://admin:MongoDBPassword132@buwebdev-cluster-1.ixkw5.mongodb.net/web420DB?retryWrites=true&w=majority";
 
 let app = express(); // Placeholder for Express app
 
@@ -47,6 +48,7 @@ const openapiSpecification = swaggerJsdoc(options); // call swaggerJsdoc library
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openapiSpecification)); // wire variable to app variable
 app.use('/api', composerAPI);
 app.use('/api', personAPI);
+app.use('/api', userAPI);
 
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
