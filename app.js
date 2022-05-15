@@ -63,6 +63,7 @@ app.use('/api', customerAPI);
 app.use('/api', teamAPI);
 
 // Create Server
+
 app.listen(process.env.PORT || 3000, function(){
-  console.log("Application started and listening on port " + app.get("port"));
+  console.log("Application started and listening on port 3000");
 });
