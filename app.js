@@ -22,6 +22,7 @@ const composerAPI = require("./routes/kerrey-composer-routes");
 const personAPI = require("./routes/kerrey-person-routes");
 const userAPI = require("./routes/kerrey-session-routes"); 
 const customerAPI = require("./routes/kerrey-node-shopper-routes");
+const teamAPI = require("./routes/kerrey-team-routes");
 
 // MongoDB database information
 var mongoDB = "mongodb+srv://admin:MongoDBPassword132@buwebdev-cluster-1.ixkw5.mongodb.net/web420DB?retryWrites=true&w=majority";
@@ -51,6 +52,7 @@ app.use('/api', composerAPI);
 app.use('/api', personAPI);
 app.use('/api', userAPI);
 app.use('/api', customerAPI);
+app.use('/api', teamAPI);
 
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
