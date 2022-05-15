@@ -27,9 +27,7 @@ const teamAPI = require("./routes/kerrey-team-routes");
 // MongoDB database information
 var mongoDB = "mongodb+srv://admin:MongoDBPassword132@buwebdev-cluster-1.ixkw5.mongodb.net/web420DB?retryWrites=true&w=majority";
 
-let app = express(); // Placeholder for Express app
-
-app.set("port", process.env.PORT || 3000); 
+let app = express(); // Placeholder for Express app 
 
 app.use(express.json()); 
 app.use(express.urlencoded({"extended": true}));
