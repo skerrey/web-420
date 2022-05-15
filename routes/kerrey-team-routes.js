@@ -76,6 +76,7 @@ router.get("/teams", async(req, res) => {
  *      content:
  *        application/json:
  *          schema:
+ *            type: object
  *            required:
  *              - firstName
  *              - lastName
@@ -117,10 +118,11 @@ router.post("/teams/:id/players", async(req, res) => {
           firstName: req.body.firstName, 
           lastName: req.body.lastName, 
           salary: req.body.salary, 
-        }
+        };
 
         team.players.push(newPlayer);
         team.save();
+        console.log(newPlayer)
       }
     });
   } catch (e) {
