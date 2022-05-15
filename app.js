@@ -24,15 +24,24 @@ const userAPI = require("./routes/kerrey-session-routes");
 const customerAPI = require("./routes/kerrey-node-shopper-routes");
 const teamAPI = require("./routes/kerrey-team-routes");
 
-// MongoDB database information
-var mongoDB = "mongodb+srv://admin:MongoDBPassword132@buwebdev-cluster-1.ixkw5.mongodb.net/web420DB?retryWrites=true&w=majority";
-
 let app = express(); // Placeholder for Express app 
 
+// Middleware
 app.use(express.json()); 
 app.use(express.urlencoded({"extended": true}));
 
-const options = { // Obj literal 
+// MongoDB database information
+var mongoDB = "mongodb+srv://admin:MongoDBPassword132@buwebdev-cluster-1.ixkw5.mongodb.net/web420DB?retryWrites=true&w=majority";
+mongoose.connect(mongoDB);
+mongoose.Promise = global.Promise;
+var db = mongoose.connection;
+db.on("error", console.error.bind(console, "MongoDB connected error:"));
+db.once("open", function () {
+    console.log("Application connected to MongoDB instance");
+});
+
+// Obj literals 
+const options = { 
     definition: {
         openapi: "3.0.0",
         info: {
@@ -45,20 +54,13 @@ const options = { // Obj literal
 
 const openapiSpecification = swaggerJsdoc(options); // call swaggerJsdoc library - options
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openapiSpecification)); // wire variable to app variable
+// Wire variable to app variable
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openapiSpecification)); 
 app.use('/api', composerAPI);
 app.use('/api', personAPI);
 app.use('/api', userAPI);
 app.use('/api', customerAPI);
 app.use('/api', teamAPI);
-
-mongoose.connect(mongoDB);
-mongoose.Promise = global.Promise;
-var db = mongoose.connection;
-db.on("error", console.error.bind(console, "MongoDB connected error:"));
-db.once("open", function () {
-    console.log("Application connected to MongoDB instance");
-});
 
 // Create Server
 app.listen(process.env.PORT || 3000, function(){
