@@ -26,6 +26,8 @@ const teamAPI = require("./routes/kerrey-team-routes");
 
 let app = express(); // Placeholder for Express app 
 
+app.set("port", process.env.PORT || 3000);
+
 // Middleware
 app.use(express.json()); 
 app.use(express.urlencoded({"extended": true}));
@@ -64,6 +66,4 @@ app.use('/api', teamAPI);
 
 // Create Server
 
-app.listen(process.env.PORT || 3000, function(){
-  console.log("Application started and listening on port 3000");
-});
+http:http.createServer(app).listen(app.get("port"), function() {console.log("Application started on port " + app.get("port"))});
